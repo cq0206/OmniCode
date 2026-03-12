@@ -1,0 +1,12 @@
+[project]
+name = "omnicode-core-engine"
+version = "0.1.0"
+description = "Python core engine for OmniCode"
+requires-python = ">=3.10"
+dependencies = [
+  "pluggy>=1.5.0"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

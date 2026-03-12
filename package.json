@@ -1,0 +1,29 @@
+{
+  "name": "omnicode",
+  "version": "0.1.0",
+  "description": "Multi-agent orchestrator with a TypeScript shell and Python core engine.",
+  "type": "module",
+  "bin": {
+    "omnicode": "./dist/cli.js",
+    "oc": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^14.0.1",
+    "execa": "^9.6.0",
+    "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

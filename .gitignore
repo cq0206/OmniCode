@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+.omnicode/
+.venv/
+.pytest_cache/
+*.egg-info/
+__pycache__/
+*.pyc
