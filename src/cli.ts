@@ -41,10 +41,16 @@ async function main(): Promise<void> {
           (event) => renderer.render(event),
         );
       } catch (error) {
-        renderer.render({
-          event: "error",
-          message: error instanceof Error ? error.message : String(error),
-        });
+        const alreadyReported =
+          error instanceof Error &&
+          "alreadyReported" in error &&
+          error.alreadyReported === true;
+        if (!alreadyReported) {
+          renderer.render({
+            event: "error",
+            message: error instanceof Error ? error.message : String(error),
+          });
+        }
         process.exitCode = 1;
       }
     });
@@ -70,10 +76,16 @@ async function main(): Promise<void> {
           (event) => renderer.render(event),
         );
       } catch (error) {
-        renderer.render({
-          event: "error",
-          message: error instanceof Error ? error.message : String(error),
-        });
+        const alreadyReported =
+          error instanceof Error &&
+          "alreadyReported" in error &&
+          error.alreadyReported === true;
+        if (!alreadyReported) {
+          renderer.render({
+            event: "error",
+            message: error instanceof Error ? error.message : String(error),
+          });
+        }
         process.exitCode = 1;
       }
     });

@@ -12,6 +12,16 @@ const srcDir = path.dirname(thisFile);
 const projectRoot = path.resolve(srcDir, "..");
 const ipcServerPath = path.join(projectRoot, "core_engine", "ipc_server.py");
 
+class RequestExecutionError extends Error {
+  readonly alreadyReported: boolean;
+
+  constructor(message: string, alreadyReported: boolean) {
+    super(message);
+    this.name = "RequestExecutionError";
+    this.alreadyReported = alreadyReported;
+  }
+}
+
 function normalizeEvent(line: string): RendererEvent | null {
   if (!line.trim()) {
     return null;
@@ -62,12 +72,7 @@ function normalizeEvent(line: string): RendererEvent | null {
     }
 
     if (parsed.jsonrpc === "2.0" && parsed.error) {
-      const error = parsed.error as Record<string, unknown>;
-
-      return {
-        event: "error",
-        message: typeof error.message === "string" ? error.message : "Unknown JSON-RPC error",
-      };
+      return null;
     }
   } catch {
     return {
@@ -153,7 +158,7 @@ async function executeRequest(
 
   if (result.exitCode !== 0) {
     const fallbackMessage = finalMessage || result.stderr || `Python engine exited with ${result.exitCode}`;
-    throw new Error(fallbackMessage);
+    throw new RequestExecutionError(fallbackMessage, Boolean(finalMessage));
   }
 
   return finalMessage || "Workflow complete";

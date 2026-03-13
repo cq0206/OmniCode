@@ -4,7 +4,6 @@ import asyncio
 import json
 import os
 import sys
-import traceback
 import uuid
 from typing import Any
 
@@ -85,9 +84,7 @@ def main() -> int:
             asyncio.run(handle_request(request))
         except Exception as exc:  # pragma: no cover - CLI integration path
             request_id = request.get("id") if isinstance(request, dict) else None
-            emit({"event": "error", "message": str(exc)})
             emit_error(str(request_id) if request_id is not None else None, str(exc))
-            traceback.print_exc(file=sys.stderr)
             return 1
 
     return 0

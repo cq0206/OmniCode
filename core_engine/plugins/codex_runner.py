@@ -27,6 +27,7 @@ class CodexRunnerPlugin:
             "exec",
             "-C",
             working_dir,
+            "--skip-git-repo-check",
         ]
         if yolo:
             command.append("--full-auto")
