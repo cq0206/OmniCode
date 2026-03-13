@@ -31,6 +31,8 @@ class CodexRunnerPlugin:
         ]
         if yolo:
             command.append("--full-auto")
+        else:
+            command.extend(["--sandbox", "workspace-write"])
         command.append(task_desc)
 
         command_preview = shlex.join(
